@@ -4,6 +4,7 @@ import "./globals.css";
 import QueryProvider from "@/components/providers";
 import { Toaster } from "@/components/ui/sonner";
 import Navbar from "@/Layout/Navbar/Navbar";
+import Footer from "@/Layout/Footer/Footer";
 
 const roboto_Mono = Roboto_Mono({
   weight: ["600", "500", "700"],
@@ -28,7 +29,8 @@ export default function RootLayout({
         <Toaster className="capitalize " />
         <QueryProvider>
           <Navbar />
-          <div className=" max-w-screen-xl py-6 px-3 mx-auto">{children}</div>
+          <div className=" max-w-screen-xl py-12 px-3 mx-auto">{children}</div>
+          <Footer />
         </QueryProvider>
       </body>
     </html>

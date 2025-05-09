@@ -15,3 +15,10 @@ export default async function Home() {
     </main>
   );
 }
+// products pages
+// cart && favorites
+// info && authAll
+// orders 
+// handle loading & errors & placeHolder
+
+

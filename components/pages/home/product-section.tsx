@@ -8,7 +8,7 @@ import Header from "@/components/shared/Header";
 import { TypographyP } from "@/components/shared/Text";
 import { renderStars } from "@/lib/utils";
 
-export default function   ProductSection({ Products }: { Products: Product[] }) {
+export default function ProductSection({ Products }: { Products: Product[] }) {
   return (
     <Header title={"Products"}>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -17,7 +17,7 @@ export default function   ProductSection({ Products }: { Products: Product[] }) 
             key={product._id}
             className="overflow-hidden gap-0   transition-transform duration-300 hover:scale-105  h-full"
           >
-            <Link href={`/product/${product.slug}`} className="block">
+            <Link href={`/product/${product._id}`} className="block">
               <div className="relative h-64 overflow-hidden">
                 <Image
                   src={product.imageCover || "/placeholder.svg"}
