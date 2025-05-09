@@ -8,7 +8,7 @@ import Header from "@/components/shared/Header";
 import { TypographyP } from "@/components/shared/Text";
 import { renderStars } from "@/lib/utils";
 
-export default function ProductSection({ Products }: { Products: Product[] }) {
+export default function   ProductSection({ Products }: { Products: Product[] }) {
   return (
     <Header title={"Products"}>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

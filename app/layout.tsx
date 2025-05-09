@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import QueryProvider from "@/components/providers";
 import { Toaster } from "@/components/ui/sonner";
+import Navbar from "@/Layout/Navbar/Navbar";
 
-const inter = Inter({
+const roboto_Mono = Roboto_Mono({
   weight: ["600", "500", "700"],
   subsets: ["latin"],
 });
@@ -22,10 +23,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className}capitalize  max-w-screen-xl py-6 px-3 mx-auto antialiased`}
+        className={`${roboto_Mono.className}capitalize  bg-muted  antialiased`}
       >
         <Toaster className="capitalize " />
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <Navbar />
+          <div className=" max-w-screen-xl py-6 px-3 mx-auto">{children}</div>
+        </QueryProvider>
       </body>
     </html>
   );

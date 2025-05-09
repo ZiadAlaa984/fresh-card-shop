@@ -8,6 +8,9 @@ const API = {
   categorys: {
     url: `${apiUrl}/categories`,
   },
+  brands: {
+    url: `${apiUrl}/brands`,
+  },
   Products: {
     url: `${apiUrl}/products`,
   },

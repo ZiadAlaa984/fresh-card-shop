@@ -9,14 +9,39 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { useIsMounted } from "@/hooks/useIsMounted";
+
 import { Category } from "@/types/categorys";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 export default function CategorySlider({
   Categorys,
 }: {
   Categorys: Category[];
 }) {
+  const IsMounted = useIsMounted();
+  const [dimention, setDimention] = useState<number>();
+  const imgRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const updateDimensions = () => {
+      if (imgRef.current) {
+        setDimention(imgRef.current.getBoundingClientRect().height);
+      }
+    };
+    setTimeout(() => {
+      if (!IsMounted) return;
+
+      updateDimensions(); // Set initial dimensions
+    }, 500);
+
+    window.addEventListener("resize", updateDimensions);
+    return () => {
+      window.removeEventListener("resize", updateDimensions);
+    };
+  }, [IsMounted]);
+
   return (
     <>
       <Header title="Categorys">
@@ -34,7 +59,10 @@ export default function CategorySlider({
               >
                 <div className="">
                   <Card>
-                    <CardContent className="flex aspect-square  flex-col   items-center justify-center">
+                    <CardContent
+                      ref={imgRef}
+                      className="flex aspect-square  flex-col   items-center justify-center"
+                    >
                       <Image
                         alt="cate"
                         className="rounded-t-xl h-[320px] object-cover"
@@ -51,8 +79,18 @@ export default function CategorySlider({
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious
+            style={{
+              top: `${dimention && dimention / 2}px`,
+            }}
+            className="absolute top-0  -translate-x-1/2 left-0 shadow   size-6 xl:size-8 "
+          />
+          <CarouselNext
+            style={{
+              top: `${dimention && dimention / 2}px`,
+            }}
+            className="absolute top-0  translate-x-1/2  right-0 shadow   size-6 xl:size-8 "
+          />
         </Carousel>
       </Header>
     </>
