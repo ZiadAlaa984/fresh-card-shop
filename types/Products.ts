@@ -31,3 +31,25 @@ export interface Product {
   updatedAt: string;
   id: string;
 }
+
+export interface Product {
+  id: string;
+  // Add other product properties here
+}
+
+export interface ProductResponse {
+  data: Product;
+  metadata: PaginationMetadata;
+  results:number
+}
+export interface PaginationMetadata {
+  currentPage: number;
+  numberOfPages: number;
+  limit: number;
+  nextPage: number | null;
+}
+export interface ProductFilter {
+  // fields?: string;
+  [key: string]: string | number | undefined;
+  sort?: string;
+}

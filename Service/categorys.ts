@@ -1,12 +1,8 @@
 import API from "@/config/endPointUrl";
+import { fetchFn } from "@/utils/fetch";
 
 export const getCategorys = async () => {
-  const response = await fetch(API.categorys.url, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    cache: "force-cache",
+  return fetchFn({
+    endpoint: API.categorys.url,
   });
-  const data = await response.json();
-  return data;
 };

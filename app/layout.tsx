@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Roboto_Mono } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 import QueryProvider from "@/components/providers";
 import { Toaster } from "@/components/ui/sonner";
 import Navbar from "@/Layout/Navbar/Navbar";
 import Footer from "@/Layout/Footer/Footer";
 
-const roboto_Mono = Roboto_Mono({
+const outfit = Outfit({
   weight: ["600", "500", "700"],
   subsets: ["latin"],
 });
@@ -23,9 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${roboto_Mono.className}capitalize  bg-muted  antialiased`}
-      >
+      <body className={`${outfit.className} capitalize  bg-muted  antialiased`}>
         <Toaster className="capitalize " />
         <QueryProvider>
           <Navbar />

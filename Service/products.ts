@@ -1,25 +1,25 @@
 import API from "@/config/endPointUrl";
+import { Product, ProductFilter, ProductResponse } from "@/types/Products";
+import { fetchFn } from "@/utils/fetch";
 
-export const getProducts = async () => {
-  const response = await fetch(API.Products.url, {
-    headers: {
-      "Content-Type": "application/json",
+export const getProducts = async (
+  page: number = 1,
+  limit: number = 10,
+  filter: ProductFilter | undefined = undefined
+) => {
+  return fetchFn({
+    endpoint: API.Products.url,
+    params: {
+      limit,
+      page,
+      ...filter,
     },
-    cache: "force-cache",
   });
-  const data = await response.json();
-  return data;
 };
 
 export const getProductById = async (id: string) => {
-  const response = await fetch(`${API.Products.url}/${id}`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
+  const data = await fetchFn<ProductResponse>({
+    endpoint: `${API.Products.url}/${id}`,
   });
-  if (!response.ok) {
-    throw new Error("Product not found");
-  }
-  const data = await response.json();
   return data?.data;
 };

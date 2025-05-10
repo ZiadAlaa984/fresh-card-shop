@@ -1,24 +1,55 @@
+"use client";
+
 import CategorySlider from "@/components/pages/home/category-slider";
-import HeroSlider from "@/components/pages/home/HeroSlider";
+import CarouselHome from "@/components/pages/home/CarouselHome";
 import ProductSection from "@/components/pages/home/product-section";
 import { getCategorys } from "@/Service/categorys";
 import { getProducts } from "@/Service/products";
+import { carousels } from "@/constant";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { CategoryResponse } from "@/types/categorys";
+import { ProductResponse } from "@/types/Products";
 
-export default async function Home() {
-  const dataCtg = await getCategorys();
-  const dataPrd = await getProducts();
+export default function Home() {
+  const [page, setPage] = useState(1);
+
+  const {
+    data: categories,
+    isLoading: isLoadingCategories,
+    isError: isErrorCategories,
+  } = useQuery<any | CategoryResponse>({
+    queryKey: ["categories"],
+    queryFn: getCategorys,
+    staleTime: 1000 * 60 * 5, // cache for 5 minutes
+  });
+
+  const {
+    data,
+    isLoading: isLoadingProducts,
+    isError: isErrorProducts,
+  } = useQuery<any | ProductResponse>({
+    queryKey: ["products", page],
+    queryFn: () => getProducts(page, 10),
+  });
+
+  if (isLoadingCategories || isLoadingProducts) {
+    return <div className="p-4">Loading...</div>;
+  }
+
+  if (isErrorCategories || isErrorProducts) {
+    return <div className="p-4 text-red-500">Something went wrong.</div>;
+  }
+
   return (
     <main className="min-h-screen flex flex-col gap-4">
-      <HeroSlider />
-      <CategorySlider Categorys={dataCtg?.data} />
-      <ProductSection Products={dataPrd?.data} />
+      <CarouselHome carousels={carousels} />
+      <CategorySlider Categorys={categories?.data || []} />
+      <ProductSection
+        page={page}
+        Products={data?.data || []}
+        setPage={setPage}
+      />
     </main>
   );
 }
-// products pages
-// cart && favorites
-// info && authAll
-// orders 
-// handle loading & errors & placeHolder
-
-
