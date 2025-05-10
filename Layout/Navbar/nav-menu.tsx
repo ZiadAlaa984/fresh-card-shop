@@ -10,13 +10,7 @@ import { NavigationMenuProps } from "@radix-ui/react-navigation-menu";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx"; // optional for clean conditional class handling
-
-const Navbar = [
-  { href: "/", value: "Home" },
-  { href: "/categories", value: "Categories" },
-  { href: "/brands", value: "Brands" },
-  { href: "/products", value: "Products" },
-];
+import { Navbar } from "@/constant";
 
 export const NavMenu = (props: NavigationMenuProps) => {
   const pathname = usePathname();

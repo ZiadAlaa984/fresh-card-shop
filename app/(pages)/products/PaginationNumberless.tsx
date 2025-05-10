@@ -5,14 +5,14 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { PaginationMetadata } from "@/types/Products";
+import { PaginationMetadataType } from "@/types/Products";
 
 export default function PaginationNumberless({
   PaginationMetadata,
   page,
   setPage,
 }: {
-  PaginationMetadata: PaginationMetadata;
+  PaginationMetadata: PaginationMetadataType;
   page: number;
   setPage: (page: number) => void;
 }) {

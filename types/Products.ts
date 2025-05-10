@@ -32,10 +32,6 @@ export interface Product {
   id: string;
 }
 
-export interface Product {
-  id: string;
-  // Add other product properties here
-}
 
 export interface ProductResponse {
   data: Product;
@@ -46,7 +42,7 @@ export interface PaginationMetadataType {
   currentPage: number;
   numberOfPages: number;
   limit: number;
-  nextPage: number | null;
+  nextPage?: number;
 }
 export interface ProductFilter {
   // fields?: string;

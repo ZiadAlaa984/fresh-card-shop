@@ -2,23 +2,24 @@
 
 import CategorySlider from "@/components/pages/home/category-slider";
 import CarouselHome from "@/components/pages/home/CarouselHome";
-import ProductSection from "@/components/pages/home/product-section";
 import { getCategorys } from "@/Service/categorys";
 import { getProducts } from "@/Service/products";
 import { carousels } from "@/constant";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { CategoryResponse } from "@/types/categorys";
-import { ProductResponse } from "@/types/Products";
+import { PaginationMetadataType, ProductResponse } from "@/types/Products";
+import ProductSection from "@/components/shared/product-section";
 
 export default function Home() {
   const [page, setPage] = useState(1);
 
+  // * fetch data
   const {
     data: categories,
     isLoading: isLoadingCategories,
     isError: isErrorCategories,
-  } = useQuery<any | CategoryResponse>({
+  } = useQuery<CategoryResponse>({
     queryKey: ["categories"],
     queryFn: getCategorys,
     staleTime: 1000 * 60 * 5, // cache for 5 minutes
@@ -28,7 +29,7 @@ export default function Home() {
     data,
     isLoading: isLoadingProducts,
     isError: isErrorProducts,
-  } = useQuery<any | ProductResponse>({
+  } = useQuery<ProductResponse>({
     queryKey: ["products", page],
     queryFn: () => getProducts(page, 10),
   });
@@ -47,9 +48,9 @@ export default function Home() {
       <ProductSection
         page={page}
         isLoading={isLoadingProducts}
-        LoadingClassName={"grid-cols-4"}
-        PaginationMetadata={data?.metadata}
-        Products={data?.data || []}
+        LoadingClassName="grid-cols-4"
+        PaginationMetadata={data?.metadata || ({} as PaginationMetadataType)}
+        Products={Array.isArray(data?.data) ? data?.data : []}
         setPage={setPage}
       />
     </main>

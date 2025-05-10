@@ -81,3 +81,10 @@ export const carousels = [
     isPublished: true,
   },
 ];
+export const Navbar = [
+  { href: "/", value: "Home" },
+  { href: "/categories", value: "Categories" },
+  { href: "/brands", value: "Brands" },
+  { href: "/products", value: "Products" },
+  { href: "/withlist", value: "Withlist" },
+];

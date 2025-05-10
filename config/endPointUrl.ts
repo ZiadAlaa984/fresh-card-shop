@@ -14,5 +14,8 @@ const API = {
   Products: {
     url: `${apiUrl}/products`,
   },
+  wishlist: {
+    url: `${apiUrl}/wishlist`,
+  },
 };
 export default API;

@@ -1,11 +1,10 @@
-import API from "@/config/endPointUrl";
-
 interface FetchOptions {
   endpoint: string;
   params?: Record<string, string | number>;
   method?: "GET" | "POST" | "PUT" | "DELETE";
   body?: any;
   cache?: RequestCache;
+  token?: string;
 }
 
 export const fetchFn = async <T>({
@@ -14,9 +13,10 @@ export const fetchFn = async <T>({
   method = "GET",
   body,
   cache = "force-cache",
+  token,
 }: FetchOptions): Promise<T> => {
-  // Build URL with parameters
   let url = endpoint;
+
   if (params && Object.keys(params).length > 0) {
     const searchParams = new URLSearchParams();
     Object.entries(params).forEach(([key, value]) => {
@@ -25,29 +25,31 @@ export const fetchFn = async <T>({
     url += `?${searchParams.toString()}`;
   }
 
-  // Prepare request options
+  const headers: HeadersInit = {
+    "Content-Type": "application/json",
+  };
+
+  // ✅ Add token as Bearer if present
+  if (token) {
+    headers["token"] = `${token}`;
+  }
+
   const options: RequestInit = {
     method,
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers,
     cache,
   };
 
-  // Add body if present
   if (body) {
     options.body = JSON.stringify(body);
   }
 
-  // Make the request
   const response = await fetch(url, options);
 
-  // Handle errors
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
-  // Parse and return the response
   const data = await response.json();
   return data;
 };

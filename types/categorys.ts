@@ -1,4 +1,4 @@
-import { PaginationMetadata } from "./Products";
+import { PaginationMetadataType } from "./Products";
 
 export interface Category {
   _id: string;
@@ -7,7 +7,7 @@ export interface Category {
   slug: string;
 }
 export interface CategoryResponse {
-  data: Category;
-  metadata: PaginationMetadata;
+  data: Category[];
+  metadata: PaginationMetadataType;
   results: number;
 }

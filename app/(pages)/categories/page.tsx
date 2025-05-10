@@ -4,13 +4,14 @@ import { getCategorys } from "@/Service/categorys";
 import { Category } from "@/types/Products";
 import { CategoryCard } from "./CategoryCard";
 import { useQuery } from "@tanstack/react-query";
+import { CategoryResponse } from "@/types/categorys";
 
 export default function Categories() {
   const {
     data: categoryQuery,
     isLoading,
     isError,
-  } = useQuery<any>({
+  } = useQuery<CategoryResponse>({
     queryKey: ["categories"],
     queryFn: getCategorys,
   });

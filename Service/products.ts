@@ -6,7 +6,7 @@ export const getProducts = async (
   page: number = 1,
   limit: number = 10,
   filter: ProductFilter | undefined = undefined
-) => {
+): Promise<ProductResponse> => {
   return fetchFn({
     endpoint: API.Products.url,
     params: {
