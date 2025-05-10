@@ -39,10 +39,10 @@ export interface Product {
 
 export interface ProductResponse {
   data: Product;
-  metadata: PaginationMetadata;
-  results:number
+  metadata: PaginationMetadataType;
+  results: number;
 }
-export interface PaginationMetadata {
+export interface PaginationMetadataType {
   currentPage: number;
   numberOfPages: number;
   limit: number;

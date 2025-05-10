@@ -16,7 +16,9 @@ import type { ProductFilter } from "@/types/Products";
 export default function FilterProducts({
   CategorysData,
   setfiltes,
+  setPage,
 }: {
+  setPage: (value: number) => void;
   setfiltes: (value: ProductFilter) => void;
   CategorysData: Category[];
 }) {
@@ -41,6 +43,7 @@ export default function FilterProducts({
 
     // Apply the filters
     setfiltes(filters);
+    setPage(1);
   };
 
   // Reset filters
@@ -48,7 +51,7 @@ export default function FilterProducts({
     // setSearchName("");
     setSelectedCategory("");
     setSortOption("");
-
+    setPage(1);
     // Also reset the applied filters
     setfiltes({});
   };

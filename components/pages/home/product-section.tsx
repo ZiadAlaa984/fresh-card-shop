@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { PaginationMetadata, Product } from "@/types/Products";
+import { PaginationMetadataType, Product } from "@/types/Products";
 import Header from "@/components/shared/Header";
 import { TypographyP } from "@/components/shared/Text";
 import { cn, renderStars } from "@/lib/utils";
@@ -18,21 +18,23 @@ export default function ProductSection({
   setPage,
   page,
   isLoading,
+  LoadingClassName,
 }: {
   isLoading?: boolean;
   setPage: (page: number) => void;
   page: number;
   Products: Product[];
   className?: string;
+  LoadingClassName?: string;
   gridClass?: string;
   pagination?: boolean;
-  PaginationMetadata?: PaginationMetadata;
+  PaginationMetadata?: PaginationMetadataType;
 }) {
   return (
     <Header className={className} title={"Products"}>
       {isLoading ? (
-        <div className="grid grid-cols-3 gap-8 w-full">
-          {Array(3)
+        <div className={`grid grid-cols-3 ${LoadingClassName} gap-8 w-full`}>
+          {Array(4)
             .fill(0)
             .map((_, index: number) => (
               <div key={index} className="animate-pulse col-span-1">
@@ -105,7 +107,7 @@ export default function ProductSection({
               </Card>
             ))}
           </div>
-          {pagination && PaginationMetadata && (
+          {pagination && (
             <PaginationNumberless
               setPage={setPage}
               page={page}

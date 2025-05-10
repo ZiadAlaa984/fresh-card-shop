@@ -1,5 +1,5 @@
 "use client";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { getProducts } from "@/Service/products";
 import ProductSection from "@/components/pages/home/product-section";
 import { useQuery } from "@tanstack/react-query";
@@ -23,7 +23,7 @@ export default function Page() {
 
   return (
     <div className="grid gap-8 grid-cols-4">
-      <FilterProducts setfiltes={setfiltes} CategorysData={CategorysData} />
+      <FilterProducts setPage={setPage} setfiltes={setfiltes} CategorysData={CategorysData} />
       <ProductSection
         isLoading={isLoading}
         PaginationMetadata={data?.metadata}

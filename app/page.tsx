@@ -33,10 +33,6 @@ export default function Home() {
     queryFn: () => getProducts(page, 10),
   });
 
-  if (isLoadingCategories || isLoadingProducts) {
-    return <div className="p-4">Loading...</div>;
-  }
-
   if (isErrorCategories || isErrorProducts) {
     return <div className="p-4 text-red-500">Something went wrong.</div>;
   }
@@ -44,9 +40,15 @@ export default function Home() {
   return (
     <main className="min-h-screen flex flex-col gap-4">
       <CarouselHome carousels={carousels} />
-      <CategorySlider Categorys={categories?.data || []} />
+      <CategorySlider
+        isLoadingCategories={isLoadingCategories}
+        Categorys={categories?.data || []}
+      />
       <ProductSection
         page={page}
+        isLoading={isLoadingProducts}
+        LoadingClassName={"grid-cols-4"}
+        PaginationMetadata={data?.metadata}
         Products={data?.data || []}
         setPage={setPage}
       />
