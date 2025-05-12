@@ -17,5 +17,8 @@ const API = {
   wishlist: {
     url: `${apiUrl}/wishlist`,
   },
+  cart: {
+    url: `${apiUrl}/cart`,
+  },
 };
 export default API;

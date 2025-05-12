@@ -3,7 +3,6 @@ interface FetchOptions {
   params?: Record<string, string | number>;
   method?: "GET" | "POST" | "PUT" | "DELETE";
   body?: any;
-  cache?: RequestCache;
   token?: string;
 }
 
@@ -12,7 +11,6 @@ export const fetchFn = async <T>({
   params,
   method = "GET",
   body,
-  cache = "force-cache",
   token,
 }: FetchOptions): Promise<T> => {
   let url = endpoint;
@@ -37,7 +35,6 @@ export const fetchFn = async <T>({
   const options: RequestInit = {
     method,
     headers,
-    cache,
   };
 
   if (body) {

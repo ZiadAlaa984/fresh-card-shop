@@ -35,6 +35,7 @@ export default function Page() {
         isLoading={isLoading}
         PaginationMetadata={data?.metadata || ({} as PaginationMetadataType)}
         gridClass={"lg:grid-cols-3"}
+        
         className={"col-span-3"}
         Products={Array.isArray(data?.data) ? data?.data : []}
         page={page}

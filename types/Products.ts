@@ -32,7 +32,6 @@ export interface Product {
   id: string;
 }
 
-
 export interface ProductResponse {
   data: Product;
   metadata: PaginationMetadataType;
@@ -48,4 +47,10 @@ export interface ProductFilter {
   // fields?: string;
   [key: string]: string | number | undefined;
   sort?: string;
+}
+export interface withlistType {
+  map(arg0: (item: Product) => string): unknown;
+  status: string;
+  data: Product[];
+  count: number;
 }

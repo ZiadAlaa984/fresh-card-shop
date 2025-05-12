@@ -1,5 +1,6 @@
+"use client";
 import { Product } from "@/types/Products";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -8,18 +9,94 @@ import { Badge } from "@/components/ui/badge";
 import { TypographyP } from "@/components/shared/Text";
 import { cn, renderStars } from "@/lib/utils";
 import { Heart, Loader, ShoppingCart } from "lucide-react";
+import { useUserContext } from "@/app/context/UserContext";
+import { addWithlist, removeWithlist } from "@/Service/wthlist";
+import { addCart } from "@/Service/cart";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "sonner";
+import { ApiResponse } from "@/types/withlist";
+import { AddCartResponce, WishlistItem } from "@/types/Cart";
 
-export default function ProductCard({
-  product,
-  handleToggleWishlist,
-  wishlistIds,
-  loadingWithlist,
-}: {
-  loadingWithlist: boolean;
-  wishlistIds: string[];
-  product: Product;
-  handleToggleWishlist: (value: string) => void;
-}) {
+export default function ProductCard({ product }: { product: Product }) {
+  const {
+    wishlistIds,
+    setWithlistIds,
+    refetchWithlist,
+    setCart,
+    setCartCount,
+    cart,
+  } = useUserContext();
+  const { getToken } = useAuth();
+  const [cardIds, setCardIds] = useState<string[]>([]);
+  //  *   add in withlist message true  ==> toast refetch withlistIds
+  // ^ withlist function
+
+  const handleToggleWishlist = async (id: string) => {
+    // ! check if he in withlist
+    if (wishlistIds.includes(id)) {
+      // * exist => remove
+      removeFromWithlist(id);
+    } else {
+      // * notExist => add
+      addInWithlist(id);
+    }
+  };
+
+  const addInWithlist = async (id: string) => {
+    try {
+      const response = (await addWithlist(getToken(), id)) as ApiResponse;
+      setWithlistIds(response.data);
+
+      toast(response?.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const removeFromWithlist = async (id: string) => {
+    try {
+      const response = (await removeWithlist(getToken(), id)) as ApiResponse;
+      refetchWithlist();
+      toast(response?.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // ^ cart function
+
+  const handleToggleCart = async (id: string) => {
+    // ! check if he in withlist
+    if (wishlistIds.includes(id)) {
+      // * exist => remove
+      // removeFromCart(id);
+    } else {
+      // * notExist => add
+      addInCart(id);
+    }
+  };
+
+  const addInCart = async (id: string) => {
+    try {
+      const response = (await addCart(getToken(), id)) as AddCartResponce;
+      setCart(response.data.products);
+      setCartCount(response.numOfCartItems);
+      toast(response?.message);
+      const idsCard = cart?.map((item: WishlistItem) => item._id);
+      console.log("🚀 ~ addInCart ~ idsCard:", idsCard);
+      setCardIds(idsCard);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // const removeFromCart = async (id: string) => {
+  //   try {
+  //     const response = (await removeWithlist(getToken(), id)) as ApiResponse;
+  //     refetchWithlist();
+  //     toast(response?.message);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   return (
     <Card
       key={product._id}
@@ -73,18 +150,21 @@ export default function ProductCard({
         <div className="flex flex-col mt-4 sm:flex-row gap-2">
           <Button
             className="gap-1 flex-1"
-            // onClick={() => handleAddToCart(product._id)}
+            onClick={() => handleToggleCart(product._id)}
           >
-            <ShoppingCart className="h-5 w-5" />
+            <ShoppingCart
+              className={`size-5 ${
+                cardIds.includes(product._id) && "text-green-400"
+              }`}
+            />
             Add to Cart
           </Button>
           <Button
             size="icon"
             variant="secondary"
-            disabled={loadingWithlist}
             onClick={() => handleToggleWishlist(product._id)}
           >
-            {loadingWithlist ? (
+            {false ? (
               <Loader className="animate-spin h-5 w-5" />
             ) : (
               <Heart
