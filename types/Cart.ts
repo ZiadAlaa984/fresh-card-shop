@@ -9,9 +9,11 @@ export interface CartResponce {
   status: string;
   data: {
     products: WishlistItem[];
+    cartOwner: string;
     totalCartPrice: number;
   };
   numOfCartItems: number;
+  cartId: string;
 }
 
 export interface AddCartResponce {

@@ -20,5 +20,9 @@ const API = {
   cart: {
     url: `${apiUrl}/cart`,
   },
+  orders: {
+    cash:`${apiUrl}/orders`,
+    checkout: `${apiUrl}/orders/checkout-session`,
+  },
 };
 export default API;
