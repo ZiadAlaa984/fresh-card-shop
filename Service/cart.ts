@@ -26,13 +26,45 @@ export const addCart = async (token: string | undefined, id: string) => {
 };
 
 // Remove item from wishlist
-export const removeCart = async (token: string | undefined, id: string) => {
+export const removeItemCart = async (token: string | undefined, id: string) => {
   if (!token) {
     throw new Error("Authentication required");
   }
 
   return fetchFn({
     endpoint: `${API.cart.url}/${id}`, // Assuming delete endpoint requires ID in path
+    method: "DELETE",
+    token,
+  });
+};
+// update item from wishlist
+export const updateItemCart = async (
+  token: string | undefined,
+  id: string,
+  count: number
+) => {
+  if (!token) {
+    throw new Error("Authentication required");
+  }
+
+  return fetchFn({
+    endpoint: `${API.cart.url}/${id}`, // Assuming delete endpoint requires ID in path
+    method: "PUT",
+    token,
+    body: {
+      count,
+    },
+  });
+};
+
+// Remove cart
+export const removeCart = async (token: string | undefined) => {
+  if (!token) {
+    throw new Error("Authentication required");
+  }
+
+  return fetchFn({
+    endpoint: `${API.cart.url}`, // Assuming delete endpoint requires ID in path
     method: "DELETE",
     token,
   });
