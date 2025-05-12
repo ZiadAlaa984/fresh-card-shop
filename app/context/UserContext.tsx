@@ -2,7 +2,7 @@
 import { useAuth } from "@/hooks/useAuth";
 import { getCart } from "@/Service/cart";
 import { getWithlist } from "@/Service/wthlist";
-import { CartProduct, CartResponce, WishlistItem } from "@/types/Cart";
+import { CartResponce } from "@/types/Cart";
 import { Product, withlistType } from "@/types/Products";
 import React, {
   createContext,
@@ -16,11 +16,12 @@ interface UserContextProps {
   wishlistIds: string[];
   cartCount: number;
   wishlist: Product[];
-  cart: WishlistItem[];
+  cartIds: string[];
   refetchWithlist: () => void;
+  refetchCart: () => void;
   setWithlistIds: (value: string[]) => void;
   setCartCount: (value: number) => void;
-  setCart: (value: WishlistItem[] | any[]) => void;
+  setCartIds: (value: string[]) => void;
 }
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
@@ -32,8 +33,9 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
   const [wishlistIds, setWithlistIds] = useState<string[]>();
   const [cartCount, setCartCount] = useState<number>();
   const [wishlist, setWithlist] = useState<Product[]>();
-  const [cart, setCart] = useState<WishlistItem[]>();
+  const [cartIds, setCartIds] = useState<string[]>();
   const [status, setStatus] = useState(false);
+  const [cartStatus, setCartStatus] = useState(false);
   //  ! useEffect withlist
   useEffect(() => {
     const getWithlistData = async () => {
@@ -56,27 +58,27 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
       const data = await getCart(getToken());
       if (data && typeof data === "object") {
         const typedData = data as CartResponce;
-        setCart(typedData?.data.products || []);
         setCartCount(typedData.numOfCartItems);
       }
     };
     getCartData();
-  }, []);
-  // const refetchCart = () => {
-  //   setStatus(!status);
-  // };
+  }, [cartStatus]);
+  const refetchCart = () => {
+    setCartStatus(!cartStatus);
+  };
 
   return (
     <UserContext.Provider
       value={{
         setWithlistIds,
         setCartCount,
-        setCart,
+        setCartIds,
+        refetchCart,
         wishlistIds: wishlistIds || [],
         cartCount: cartCount || 0,
         refetchWithlist,
         wishlist: wishlist || [],
-        cart: cart || [],
+        cartIds: cartIds || [],
       }}
     >
       {children}

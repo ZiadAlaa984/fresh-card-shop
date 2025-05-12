@@ -1,6 +1,6 @@
 "use client";
 import { Product } from "@/types/Products";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -15,19 +15,12 @@ import { addCart } from "@/Service/cart";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 import { ApiResponse } from "@/types/withlist";
-import { AddCartResponce, WishlistItem } from "@/types/Cart";
+import { AddCartResponce } from "@/types/Cart";
 
 export default function ProductCard({ product }: { product: Product }) {
-  const {
-    wishlistIds,
-    setWithlistIds,
-    refetchWithlist,
-    setCart,
-    setCartCount,
-    cart,
-  } = useUserContext();
+  const { wishlistIds, setWithlistIds, refetchWithlist, refetchCart } =
+    useUserContext();
   const { getToken } = useAuth();
-  const [cardIds, setCardIds] = useState<string[]>([]);
   //  *   add in withlist message true  ==> toast refetch withlistIds
   // ^ withlist function
 
@@ -64,38 +57,25 @@ export default function ProductCard({ product }: { product: Product }) {
   // ^ cart function
 
   const handleToggleCart = async (id: string) => {
-    // ! check if he in withlist
-    if (wishlistIds.includes(id)) {
-      // * exist => remove
-      // removeFromCart(id);
-    } else {
-      // * notExist => add
-      addInCart(id);
-    }
+    // // ! check if he in withlist
+    // if (wishlistIds.includes(id)) {
+    //   // * exist => remove
+    //   // removeFromCart(id);
+    // } else {
+    // * notExist => add
+    addInCart(id);
+    // }
   };
 
   const addInCart = async (id: string) => {
     try {
       const response = (await addCart(getToken(), id)) as AddCartResponce;
-      setCart(response.data.products);
-      setCartCount(response.numOfCartItems);
+      refetchCart();
       toast(response?.message);
-      const idsCard = cart?.map((item: WishlistItem) => item._id);
-      console.log("🚀 ~ addInCart ~ idsCard:", idsCard);
-      setCardIds(idsCard);
     } catch (error) {
       console.log(error);
     }
   };
-  // const removeFromCart = async (id: string) => {
-  //   try {
-  //     const response = (await removeWithlist(getToken(), id)) as ApiResponse;
-  //     refetchWithlist();
-  //     toast(response?.message);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   return (
     <Card
@@ -152,11 +132,7 @@ export default function ProductCard({ product }: { product: Product }) {
             className="gap-1 flex-1"
             onClick={() => handleToggleCart(product._id)}
           >
-            <ShoppingCart
-              className={`size-5 ${
-                cardIds.includes(product._id) && "text-green-400"
-              }`}
-            />
+            <ShoppingCart className="size-5" />
             Add to Cart
           </Button>
           <Button
