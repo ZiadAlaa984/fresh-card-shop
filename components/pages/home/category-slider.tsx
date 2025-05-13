@@ -1,5 +1,6 @@
 "use client";
 import Header from "@/components/shared/Header";
+import LoadingCards from "@/components/shared/loadingCards";
 import { TypographyP } from "@/components/shared/Text";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -48,17 +49,7 @@ export default function CategorySlider({
     <>
       <Header title="Categorys">
         {isLoadingCategories ? (
-          <div className="grid grid-cols-3 gap-8 w-full">
-            {Array(3)
-              .fill(0)
-              .map((_, index: number) => (
-                <div key={index} className="animate-pulse col-span-1">
-                  <div className="h-96 bg-gray-200 rounded-lg mb-4"></div>
-                  <div className="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
-                  <div className="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
-                </div>
-              ))}
-          </div>
+          <LoadingCards LoadingClassName="h-[150px]  md:h-[320px]" />
         ) : (
           <Carousel
             opts={{
@@ -70,7 +61,7 @@ export default function CategorySlider({
               {Categorys.map((Category: Category) => (
                 <CarouselItem
                   key={Category._id}
-                  className="md:basis-1/2 lg:basis-1/5"
+                  className="basis-1/2 lg:basis-1/5"
                 >
                   <div className="">
                     <Card>
@@ -79,8 +70,8 @@ export default function CategorySlider({
                         className="flex aspect-square  flex-col   items-center justify-center"
                       >
                         <Image
-                          alt="cate"
-                          className="rounded-t-xl h-[320px] object-cover"
+                          alt={Category.name}
+                          className="rounded-t-xl h-[150px] md:h-[320px] object-cover"
                           width={300}
                           height={300}
                           src={Category.image}

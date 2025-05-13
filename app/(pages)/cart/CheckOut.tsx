@@ -16,8 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/hooks/useAuth";
 import { CreateCashOrder } from "@/Service/orders";
 import { toast } from "sonner";
-import { useState } from "react";
-import { BanknoteArrowUp, Landmark } from "lucide-react";
+import { BanknoteArrowUp } from "lucide-react";
 
 export default function CheckOut({
   totalPrice,
@@ -42,6 +41,7 @@ export default function CheckOut({
   async function onSubmit(data: ShippingAddressFormValues) {
     try {
       const res = await CreateCashOrder(getToken(), cartOwner, data);
+      console.log("🚀 ~ onSubmit ~ res:", res);
 
       refetchCart();
       toast("success");

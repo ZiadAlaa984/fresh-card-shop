@@ -27,7 +27,9 @@ export default function RootLayout({
         <Toaster className="capitalize " />
         <QueryProvider>
           <Navbar />
-          <div className=" max-w-screen-xl py-12 px-3 mx-auto">{children}</div>
+          <div className=" max-w-screen-xl pt-22 py-12 px-3 mx-auto">
+            {children}
+          </div>
           <Footer />
         </QueryProvider>
       </body>

@@ -36,7 +36,7 @@ export function TypographyH3({ className = "", children }: TypographyProps) {
 export function TypographyH4({ className = "", children }: TypographyProps) {
   return (
     <h4
-      className={`scroll-m-20 text-xl font-semibold tracking-tight ${className}`}
+      className={`scroll-m-20 line-clamp-1 text-[16px] md:text-xl font-semibold tracking-tight ${className}`}
     >
       {children}
     </h4>
@@ -44,5 +44,11 @@ export function TypographyH4({ className = "", children }: TypographyProps) {
 }
 
 export function TypographyP({ className = "", children }: TypographyProps) {
-  return <p className={`leading-7  ${className}`}>{children}</p>;
+  return (
+    <p
+      className={`leading-7 line-clamp-1 text-[12px] md:text-[16px]  ${className}`}
+    >
+      {children}
+    </p>
+  );
 }

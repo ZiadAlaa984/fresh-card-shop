@@ -6,7 +6,9 @@ export default function LoadingCards({
   LoadingClassName?: string;
 }) {
   return (
-    <div className={`grid grid-cols-3 ${LoadingClassName} gap-8 w-full`}>
+    <div
+      className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ${LoadingClassName} gap-8 w-full`}
+    >
       {Array(4)
         .fill(0)
         .map((_, index: number) => (
