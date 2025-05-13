@@ -14,7 +14,7 @@ import { ShippingAddressFormValues, shippingAddressSchema } from "./scheme";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/hooks/useAuth";
-import { CreateCashOrder, CreateOnlineOrder } from "@/Service/orders";
+import { CreateCashOrder } from "@/Service/orders";
 import { toast } from "sonner";
 import { useState } from "react";
 import { BanknoteArrowUp, Landmark } from "lucide-react";
@@ -29,7 +29,6 @@ export default function CheckOut({
   cartOwner: string;
 }) {
   const { getToken } = useAuth();
-  const [tabs, setTabs] = useState("cash"); // Default to cash payment
   const form = useForm<ShippingAddressFormValues>({
     resolver: zodResolver(shippingAddressSchema),
     defaultValues: {
@@ -42,12 +41,8 @@ export default function CheckOut({
   });
   async function onSubmit(data: ShippingAddressFormValues) {
     try {
-      if (tabs == "cash") {
-        const res = await CreateCashOrder(getToken(), cartOwner, data);
-      } else {
-        const res = await CreateOnlineOrder(getToken(), cartOwner, data);
-        console.log("🚀 ~ onSubmit ~ res:", res);
-      }
+      const res = await CreateCashOrder(getToken(), cartOwner, data);
+
       refetchCart();
       toast("success");
     } catch (error) {
@@ -62,7 +57,10 @@ export default function CheckOut({
           <div className="mt-6">
             <div className="border rounded-md overflow-hidden p-5">
               <div className="flex justify-between items-center">
-                <h3 className="font-semibold text-lg mb-4">Cart totals</h3>
+                <h3 className="font-semibold flex items-center gap-1  mb-4">
+                  {" "}
+                  Cash Order <BanknoteArrowUp />
+                </h3>
 
                 <div className="flex justify-between gap-2 mb-6">
                   <span>Total Price :</span>
@@ -110,36 +108,9 @@ export default function CheckOut({
                   )}
                 />
                 <div className="space-y-4">
-                  <div className="flex gap-4">
-                    <Button
-                      type="button"
-                      className={`flex-1 ${
-                        tabs === "cash"
-                          ? " text-white"
-                          : "bg-white text-black border hover:bg-gray-50"
-                      }`}
-                      onClick={() => setTabs("cash")}
-                    >
-                      <BanknoteArrowUp /> Cash Order
-                    </Button>
-                    <Button
-                      type="button"
-                      className={`flex-1 ${
-                        tabs === "online"
-                          ? " text-white"
-                          : "bg-white border text-black hover:bg-gray-50"
-                      }`}
-                      onClick={() => setTabs("online")}
-                    >
-                      <Landmark /> Online Order
-                    </Button>
-                  </div>
-
                   <div className="text-center">
-                    <Button type="submit" className="w-full " disabled={!tabs}>
-                      {tabs === "cash"
-                        ? "Place Cash Order"
-                        : "Proceed to Online Payment"}
+                    <Button type="submit" className="w-full ">
+                      Place Cash Order
                     </Button>
                   </div>
                 </div>
