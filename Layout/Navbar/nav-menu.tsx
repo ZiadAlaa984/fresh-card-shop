@@ -12,12 +12,15 @@ import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { Navbar } from "@/constant";
 import { useAuth } from "@/hooks/useAuth";
+import BtnNavbar from "./BtnNavbar";
+import { Heart, ShoppingCart } from "lucide-react";
+import { useUserContext } from "@/app/context/UserContext";
 
 export const NavMenu = (props: NavigationMenuProps) => {
   const pathname = usePathname();
   const { getToken } = useAuth();
   const token = getToken();
-
+  let { wishlistIds, cartCount } = useUserContext();
   // Filter navigation items based on auth status
   const filteredNavbar = Navbar.filter((item) => {
     if (item.token && !token) return false;
@@ -44,6 +47,21 @@ export const NavMenu = (props: NavigationMenuProps) => {
             </NavigationMenuLink>
           </NavigationMenuItem>
         ))}
+
+        {token && (
+          <div className="flex  items-center gap-3">
+            <BtnNavbar
+              name={"/cart"}
+              icon={<ShoppingCart />}
+              Count={cartCount}
+            />
+            <BtnNavbar
+              name={"/withlist"}
+              icon={<Heart />}
+              Count={wishlistIds?.length}
+            />
+          </div>
+        )}
       </NavigationMenuList>
     </NavigationMenu>
   );

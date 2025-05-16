@@ -26,7 +26,7 @@ const Navbar = () => {
 
           <div className="flex items-center gap-3">
             {token && (
-              <>
+              <div className="hidden md:flex items-center gap-3">
                 <BtnNavbar
                   name={"/cart"}
                   icon={<ShoppingCart />}
@@ -37,7 +37,7 @@ const Navbar = () => {
                   icon={<Heart />}
                   Count={wishlistIds?.length}
                 />
-              </>
+              </div>
             )}
 
             <DropdownMenuWithIcon token={token ?? ""} />
