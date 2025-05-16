@@ -44,7 +44,7 @@ export default function CarouselWithThumbs({ images }: { images: string[] }) {
           {images.map((img, index) => (
             <CarouselItem key={index}>
               <Card>
-                <CardContent className="flex aspect-video items-center justify-center p-6">
+                <CardContent className="flex aspect-video items-center justify-center p-1 md:p-6">
                   <Image
                     src={img}
                     alt={`Product image ${index + 1}`}
@@ -57,8 +57,6 @@ export default function CarouselWithThumbs({ images }: { images: string[] }) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
       </Carousel>
 
       <Carousel className=" w-full max-w-xs">
@@ -67,7 +65,7 @@ export default function CarouselWithThumbs({ images }: { images: string[] }) {
             <CarouselItem
               key={index}
               className={cn(
-                "basis-1/5 cursor-pointer",
+                "basis-1/3 md:basis-1/5 cursor-pointer",
                 current === index + 1 ? "opacity-100" : "opacity-50"
               )}
               onClick={() => handleThumbClick(index)}

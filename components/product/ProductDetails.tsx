@@ -16,7 +16,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   const [inWishlist, setInWishlist] = useState(false);
 
   return (
-    <div className="flex flex-col gap-2 justify-between  col-span-2">
+    <div className="flex flex-col gap-2 pt-6 md:pt-0  justify-between  col-span-2">
       <div>
         <h1 className="text-3xl font-bold">{product.title}</h1>
         <div className="flex items-center mt-2 space-x-4">
@@ -91,7 +91,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row gap-4">
         <Button
-          className="flex-1 gap-2"
+          className=" gap-2"
           size="lg"
           onClick={() => setAddedToCart(true)}
           disabled={!product.quantity || addedToCart}
@@ -112,7 +112,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <Button
           variant={inWishlist ? "default" : "outline"}
           size="lg"
-          className={`flex-1 gap-2 ${
+          className={` gap-2 ${
             inWishlist ? "bg-pink-600 hover:bg-pink-700" : ""
           }`}
           onClick={() => setInWishlist(!inWishlist)}

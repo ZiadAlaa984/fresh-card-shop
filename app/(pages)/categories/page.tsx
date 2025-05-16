@@ -5,6 +5,7 @@ import { Category } from "@/types/Products";
 import { CategoryCard } from "./CategoryCard";
 import { useQuery } from "@tanstack/react-query";
 import { CategoryResponse } from "@/types/categorys";
+import LoadingCards from "@/components/shared/loadingCards";
 
 export default function Categories() {
   const {
@@ -22,11 +23,11 @@ export default function Categories() {
     <Header title={"Categories"}>
       <div className="container mx-auto py-6">
         {isLoading ? (
-          <p className="text-center">Loading...</p>
+          <LoadingCards />
         ) : isError ? (
           <p className="text-center text-red-500">Failed to load categories</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-6 ">
             {categories.length > 0 ? (
               categories.map((category: Category, index: number) => (
                 <CategoryCard key={index} category={category} />

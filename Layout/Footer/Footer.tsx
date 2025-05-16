@@ -17,7 +17,7 @@ const Footer = () => {
       <div className="grow " />
       <footer>
         <div className="max-w-screen-xl  mx-auto">
-          <div className="py-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-x-8 gap-y-10 px-6 xl:px-0">
+          <div className="py-12  grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-x-8 gap-y-10 px-6 xl:px-3">
             <div className="col-span-full xl:col-span-2">
               <h1 className="flex items-center gap-1 text-xl">
                 <ShoppingCart /> FreshCart

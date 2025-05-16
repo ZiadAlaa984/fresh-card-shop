@@ -12,7 +12,7 @@ export default function Header({
   title: string;
 }) {
   return (
-    <div className={cn(" flex flex-col gap-4", className)}>
+    <div className={cn(" flex flex-col gap-1 md:gap-4", className)}>
       <TypographyH2>{title}</TypographyH2>
       <div>{children}</div>
     </div>

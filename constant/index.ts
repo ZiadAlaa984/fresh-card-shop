@@ -86,5 +86,5 @@ export const Navbar = [
   { href: "/categories", value: "Categories" },
   { href: "/brands", value: "Brands" },
   { href: "/products", value: "Products" },
-  { href: "/orders", value: "orders" },
+  { href: "/orders", value: "orders", token: true },
 ];

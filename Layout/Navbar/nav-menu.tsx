@@ -9,16 +9,25 @@ import {
 import { NavigationMenuProps } from "@radix-ui/react-navigation-menu";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import clsx from "clsx"; // optional for clean conditional class handling
+import clsx from "clsx";
 import { Navbar } from "@/constant";
+import { useAuth } from "@/hooks/useAuth";
 
 export const NavMenu = (props: NavigationMenuProps) => {
   const pathname = usePathname();
+  const { getToken } = useAuth();
+  const token = getToken();
+
+  // Filter navigation items based on auth status
+  const filteredNavbar = Navbar.filter((item) => {
+    if (item.token && !token) return false;
+    return true;
+  });
 
   return (
     <NavigationMenu {...props}>
       <NavigationMenuList className="gap-6 space-x-0 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start">
-        {Navbar.map((item) => (
+        {filteredNavbar.map((item) => (
           <NavigationMenuItem key={item.href}>
             <NavigationMenuLink asChild>
               <Link

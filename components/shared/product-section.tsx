@@ -15,6 +15,7 @@ export default function ProductSection({
   page,
   isLoading,
   LoadingClassName,
+  error,
 }: {
   isLoading?: boolean;
   setPage: (page: number) => void;
@@ -25,24 +26,35 @@ export default function ProductSection({
   gridClass?: string;
   pagination?: boolean;
   PaginationMetadata: PaginationMetadataType;
+  error?: string; // 🔥 New error prop
 }) {
   return (
     <Header className={className} title={"Products"}>
       {isLoading ? (
         <LoadingCards LoadingClassName={LoadingClassName} />
+      ) : error ? (
+        <p className="text-center text-destructive text-sm">
+          {error || "Something went wrong while fetching products."}
+        </p>
       ) : (
         <div className="flex flex-col gap-8">
           <div
             className={cn(
-              `grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-6`,
+              `grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-5 lg:gap-6`,
               gridClass
             )}
           >
-            {Products.map((product: Product, index: number) => (
-              <ProductCard product={product} key={index} />
-            ))}
+            {Products.length > 0 ? (
+              Products.map((product: Product, index: number) => (
+                <ProductCard product={product} key={index} />
+              ))
+            ) : (
+              <p className="col-span-full text-center text-muted-foreground">
+                No Products found
+              </p>
+            )}
           </div>
-          {pagination && (
+          {pagination && Products.length > 0 && (
             <PaginationNumberless
               setPage={setPage}
               page={page}

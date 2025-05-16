@@ -40,7 +40,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col gap-4">
-      <CarouselHome carousels={carousels} />
+      {/* <CarouselHome carousels={carousels} /> */}
       <CategorySlider
         isLoadingCategories={isLoadingCategories}
         Categorys={categories?.data || []}

@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import React from "react";
 
 export default function LoadingCards({
@@ -7,9 +8,12 @@ export default function LoadingCards({
 }) {
   return (
     <div
-      className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ${LoadingClassName} gap-8 w-full`}
+      className={cn(
+        `grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-2 md:gap-6 w-full`,
+        LoadingClassName
+      )}
     >
-      {Array(4)
+      {Array(8)
         .fill(0)
         .map((_, index: number) => (
           <div key={index} className="animate-pulse col-span-1">

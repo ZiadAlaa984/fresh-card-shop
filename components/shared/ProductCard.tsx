@@ -137,13 +137,13 @@ export default function ProductCard({ product }: { product: Product }) {
                   ({product.ratingsQuantity})
                 </span>
               </div>
-              <span className="text-[8px] line-clamp-1 text-muted-foreground">
+              <span className="text-[8px] md:text-xs line-clamp-1 text-muted-foreground">
                 {product.sold} sold
               </span>
             </div>
             <div className="flex flex-row mt-2 justify-between md:mt-4 sm:flex-row gap-1 md:gap-2">
               <Button
-                className="md:gap-1 flex-1 text-[10px] "
+                className="md:gap-1 flex-1 text-[10px] md:text-sm "
                 onClick={(e) => {
                   e.preventDefault();
                   addInCart(product._id);

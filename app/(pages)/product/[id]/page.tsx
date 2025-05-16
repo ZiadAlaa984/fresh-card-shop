@@ -9,8 +9,6 @@ import ProductDetails from "@/components/product/ProductDetails";
 export default function ProductPage() {
   const params = useParams();
   const productId = params.id as string;
-
-  // Fetch product data using React Query
   const {
     data: product,
     isLoading,
@@ -19,8 +17,6 @@ export default function ProductPage() {
     queryKey: ["product", productId],
     queryFn: () => getProductById(productId),
   });
-  console.log("🚀 ~ ProductPage ~ product:", product);
-
   if (isLoading) {
     return (
       <div className="container mx-auto px-4 py-8">
@@ -48,7 +44,7 @@ export default function ProductPage() {
 
   return (
     <div className="container mx-auto ">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 lg:gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3  gap-0 lg:gap-8">
         <CarouselWithThumbs images={images} />
         <ProductDetails product={product} />
       </div>

@@ -5,6 +5,7 @@ import QueryProvider from "@/components/providers";
 import { Toaster } from "@/components/ui/sonner";
 import Navbar from "@/Layout/Navbar/Navbar";
 import Footer from "@/Layout/Footer/Footer";
+import Arrow from "@/Layout/Arrow";
 
 const outfit = Outfit({
   weight: ["600", "500", "700"],
@@ -27,22 +28,14 @@ export default function RootLayout({
         <Toaster className="capitalize " />
         <QueryProvider>
           <Navbar />
-          <div className=" max-w-screen-xl pt-22 py-12 px-3 mx-auto">
+          <div className=" max-w-screen-xl pt-22  py-12 px-3 mx-auto">
             {children}
           </div>
+
+          <Arrow />
           <Footer />
         </QueryProvider>
       </body>
     </html>
   );
 }
-// project
-// auth => login , Register , contextToken , .env
-// Forgot Password , Verify Reset Code
-//
-//
-//
-//
-//
-//
-// * //

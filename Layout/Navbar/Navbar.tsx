@@ -7,10 +7,13 @@ import { useUserContext } from "@/app/context/UserContext";
 import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import BtnNavbar from "./BtnNavbar";
+import DropdownMenuWithIcon from "@/components/dropdown-menu-02";
 
 const Navbar = () => {
   let { wishlistIds, cartCount } = useUserContext();
   const { getToken } = useAuth();
+  const token = getToken();
+
   return (
     <div className=" ">
       <nav className="h-16 bg-transparent backdrop-blur-2xl z-40 fixed w-full border-b">
@@ -18,31 +21,18 @@ const Navbar = () => {
           <Link href="/" className="flex items-center gap-1 md:text-xl">
             <ShoppingCart /> FreshCart
           </Link>
-
           {/* Desktop Menu */}
           <NavMenu className="hidden md:block" />
 
           <div className="flex items-center gap-3">
-            {getToken() ? (
+            {token && (
               <>
-                {" "}
-                <BtnNavbar icon={<CircleUser />} />
                 <BtnNavbar icon={<ShoppingCart />} Count={cartCount} />
                 <BtnNavbar icon={<Heart />} Count={wishlistIds?.length} />
-                <Button className="inline-flex font-medium items-center text-[10px] md:gap-1">
-                  Sign Out <LogOut className="size-3" />
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button
-                  variant="outline"
-                  className="hidden  sm:inline-flex items-center gap-1"
-                >
-                  Sign In <LogIn />
-                </Button>
               </>
             )}
+
+            <DropdownMenuWithIcon token={token ?? ""} />
 
             {/* Mobile Menu */}
             <div className="md:hidden">

@@ -6,7 +6,11 @@ import FilterProducts from "./FilterProducts";
 import { getCategorys } from "@/Service/categorys";
 import ProductSection from "@/components/shared/product-section";
 import { CategoryResponse } from "@/types/categorys";
-import { PaginationMetadataType, ProductFilter, ProductResponse } from "@/types/Products";
+import {
+  PaginationMetadataType,
+  ProductFilter,
+  ProductResponse,
+} from "@/types/Products";
 
 export default function Page() {
   const [page, setPage] = useState(1);
@@ -35,8 +39,8 @@ export default function Page() {
         isLoading={isLoading}
         PaginationMetadata={data?.metadata || ({} as PaginationMetadataType)}
         gridClass={"lg:grid-cols-3"}
-        
-        className={"col-span-3"}
+        LoadingClassName={"lg:grid-cols-3"}
+        className={"col-span-4 lg:col-span-3"}
         Products={Array.isArray(data?.data) ? data?.data : []}
         page={page}
         setPage={setPage}

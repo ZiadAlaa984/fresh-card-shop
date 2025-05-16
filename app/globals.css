@@ -116,4 +116,18 @@
   * {
     @apply border-border outline-ring/50;
   }
+  .px-prime {
+    @apply px-3;
+  }
+  body[data-scroll-locked] {
+    overflow: hidden !important;
+    overscroll-behavior: contain;
+    position: relative !important;
+    padding-left: 0px;
+    padding-top: 0px;
+    padding-right: 0px;
+    margin-left: 0;
+    margin-top: 0;
+    margin-right: 0px !important;
+  }
 }
