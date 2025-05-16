@@ -27,6 +27,7 @@ const API = {
   },
   user: {
     url: `${apiUrl}/users`,
+    order: `${apiUrl}/orders/user/`,
     update: `${apiUrl}/users/updateMe/`,
     resetPassword: `${apiUrl}/users/changeMyPassword`,
   },

@@ -1,7 +1,23 @@
 import { ShippingAddressFormValues } from "@/app/(pages)/cart/scheme";
 import API from "@/config/endPointUrl";
+import { Order } from "@/types/orders";
 import { fetchFn } from "@/utils/fetch";
 
+//  get orders
+export const GetOrders = async (
+  token: string | undefined,
+  cartId: string
+): Promise<Order[]> => {
+  if (!token) {
+    throw new Error("Authentication required");
+  }
+
+  return fetchFn({
+    endpoint: `${API.user.order}${cartId}`,
+    method: "GET",
+    token,
+  });
+};
 //  Create Cash Order
 export const CreateCashOrder = async (
   token: string | undefined,
