@@ -1,5 +1,5 @@
-import ResetPassword from "@/app/(pages)/info/ResetPassword";
-import UpdateInfo from "@/app/(pages)/info/updateInfo";
+import ResetPassword from "@/app/(pages)/profile/ResetPassword";
+import UpdateInfo from "@/app/(pages)/profile/updateInfo";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Info, KeyRound } from "lucide-react";
 const tabs = [
@@ -19,9 +19,9 @@ export default function VerticalTabsDemo() {
     <Tabs
       orientation="vertical"
       defaultValue={tabs[0].value}
-      className=" w-full flex items-start flex-row gap-4 justify-center"
+      className=" w-full flex items-start flex-col md:flex-row gap-4 justify-center"
     >
-      <TabsList className="shrink-0 grid grid-cols-1 h-auto w-fit gap-1">
+      <TabsList className="shrink-0 grid grid-cols-1  h-auto w-fit gap-1">
         {tabs.map((tab) => (
           <TabsTrigger
             key={tab.value}

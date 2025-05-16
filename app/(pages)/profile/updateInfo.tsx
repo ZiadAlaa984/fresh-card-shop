@@ -22,29 +22,16 @@ import {
 } from "@/components/ui/form";
 import { type formSchema, useInfoScheme } from "./scheme";
 import { toast } from "sonner";
-
-// Local storage key for profile image
-const PROFILE_IMAGE_KEY = "user_profile_image";
+import { useUserContext } from "@/app/context/UserContext";
 
 export default function UpdateInfo() {
   const { getToken } = useAuth();
   const [userId, setUserId] = useState<string>("");
-  const [profileImage, setProfileImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { profileImage, setProfileImage } = useUserContext();
 
   // Use the form hook with Zod validation
   const form = useInfoScheme();
-
-  // Load profile image from local storage on component mount
-  useEffect(() => {
-    // Only run in browser environment
-    if (typeof window !== "undefined") {
-      const savedImage = localStorage.getItem(PROFILE_IMAGE_KEY);
-      if (savedImage) {
-        setProfileImage(savedImage);
-      }
-    }
-  }, []);
 
   // Fetch user ID once on component mount
   useEffect(() => {
@@ -124,7 +111,7 @@ export default function UpdateInfo() {
         // Save to local storage
         if (typeof window !== "undefined") {
           try {
-            localStorage.setItem(PROFILE_IMAGE_KEY, imageDataUrl);
+            localStorage.setItem("setProfileImage", imageDataUrl);
             toast.success("Profile image saved locally");
           } catch (error) {
             // Handle potential localStorage quota exceeded error

@@ -171,15 +171,15 @@ export default function ResetPassword() {
             )}
           />
 
-          <Button type="submit" className="w-full" disabled={isPending}>
+          <Button type="submit" className="" disabled={isPending}>
             {isPending ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader2 className="mr-1 h-4 w-4 animate-spin" />
                 Updating...
               </>
             ) : (
               <>
-                <KeyRound className="mr-2 h-4 w-4" />
+                <KeyRound className="mr-1 h-4 w-4" />
                 Update Password
               </>
             )}

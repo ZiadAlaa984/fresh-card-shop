@@ -5,5 +5,6 @@ const Route = {
     forgetPassword: "/auth/forgetPassword",
     VerifyResetCode: "/auth/verifyResetCode",
   },
+  
 };
 export default Route;

@@ -49,7 +49,7 @@ export const NavMenu = (props: NavigationMenuProps) => {
         ))}
 
         {token && (
-          <div className="flex  items-center gap-3">
+          <div className="flex md:hidden  items-center gap-3">
             <BtnNavbar
               name={"/cart"}
               icon={<ShoppingCart />}

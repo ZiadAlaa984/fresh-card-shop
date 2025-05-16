@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Heart, ShoppingCart, Star, Check, Loader } from "lucide-react";
+import { Heart, ShoppingCart, Star, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -25,6 +25,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingCard, setIsLoadingCard] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  console.log("🚀 ~ ProductDetails ~ showAuthModal:", showAuthModal);
   // Check if user is authenticated
   const isAuthenticated = () => {
     const token = getToken();

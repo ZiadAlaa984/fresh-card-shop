@@ -14,6 +14,8 @@ import React, {
 
 interface UserContextProps {
   wishlistIds: string[];
+  profileImage: string;
+  setProfileImage: (value: string) => void;
   cartCount: number;
   isLoading: boolean;
   wishlist: Product[];
@@ -37,6 +39,18 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
   const [cart, setCart] = useState<CartResponce>();
   const [status, setStatus] = useState(false);
   const [cartStatus, setCartStatus] = useState(false);
+  const PROFILE_IMAGE_KEY = "user_profile_image";
+  const [profileImage, setProfileImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Only run in browser environment
+    if (typeof window !== "undefined") {
+      const savedImage = localStorage.getItem(PROFILE_IMAGE_KEY);
+      if (savedImage) {
+        setProfileImage(savedImage);
+      }
+    }
+  }, []);
   //  ! useEffect withlist
   useEffect(() => {
     const getWithlistData = async () => {
@@ -75,6 +89,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
     <UserContext.Provider
       value={{
         setWithlistIds,
+        setProfileImage,
+        profileImage: profileImage || "",
         setCartCount,
         refetchCart,
         isLoading,
