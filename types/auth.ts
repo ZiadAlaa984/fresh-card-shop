@@ -5,6 +5,11 @@ export interface SignUpData {
   rePassword: string;
   phone: string;
 }
+export interface ResetPasswordData {
+  currentPassword: string;
+  password: string;
+  rePassword: string;
+}
 export interface LoginData {
   email: string;
   password: string;
@@ -31,4 +36,9 @@ export interface DecodedToken {
 export interface TokenVerificationResponse {
   message: string;
   decoded: DecodedToken;
+}
+export interface updateInfo {
+  message: string;
+  token: string;
+  user: User;
 }

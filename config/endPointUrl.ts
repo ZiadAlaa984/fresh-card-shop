@@ -28,6 +28,7 @@ const API = {
   user: {
     url: `${apiUrl}/users`,
     update: `${apiUrl}/users/updateMe/`,
+    resetPassword: `${apiUrl}/users/changeMyPassword`,
   },
 };
 export default API;

@@ -1,5 +1,11 @@
 import API from "@/config/endPointUrl";
-import { LoginData, SignUpData } from "@/types/auth";
+import {
+  LoginData,
+  ResetPasswordData,
+  SignUpData,
+  updateInfo,
+} from "@/types/auth";
+import { fetchFn } from "@/utils/fetch";
 
 export const SignupReq = async (data: SignUpData) => {
   const response = await fetch(API.auth.signup, {
@@ -22,4 +28,19 @@ export const LoginReq = async (data: LoginData) => {
   });
 
   return response.json();
+};
+export const ResetPasswordReq = async (
+  token: string | undefined,
+  data: ResetPasswordData
+): Promise<updateInfo> => {
+  if (!token) {
+    throw new Error("Authentication required");
+  }
+
+  return fetchFn({
+    endpoint: API.user.resetPassword,
+    method: "PUT",
+    body: data,
+    token,
+  });
 };
