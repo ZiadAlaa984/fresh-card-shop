@@ -1,19 +1,94 @@
 "use client";
 
 import { useState } from "react";
-import { Heart, ShoppingCart, Star, Check } from "lucide-react";
+import { Heart, ShoppingCart, Star, Check, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Product } from "@/types/Products";
+import { useUserContext } from "@/app/context/UserContext";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "sonner";
+import { addCart } from "@/Service/cart";
+import { AddCartResponce, ApiResponse } from "@/types/Cart";
+import { addWithlist, removeWithlist } from "@/Service/wthlist";
+import { cn } from "@/lib/utils";
 
 interface ProductDetailsProps {
   product: Product;
 }
 
 export default function ProductDetails({ product }: ProductDetailsProps) {
-  const [addedToCart, setAddedToCart] = useState(false);
-  const [inWishlist, setInWishlist] = useState(false);
+  const { wishlistIds, setWithlistIds, refetchWithlist, refetchCart } =
+    useUserContext();
+  const { getToken } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingCard, setIsLoadingCard] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  // Check if user is authenticated
+  const isAuthenticated = () => {
+    const token = getToken();
+    if (!token) {
+      setShowAuthModal(true);
+      return false;
+    }
+    return true;
+  };
+
+  const handleToggleWishlist = async (id: string) => {
+    if (!isAuthenticated()) return;
+
+    // ! check if he in withlist
+    if (wishlistIds.includes(id)) {
+      // * exist => remove
+      removeFromWithlist(id);
+    } else {
+      // * notExist => add
+      addInWithlist(id);
+    }
+  };
+
+  const addInWithlist = async (id: string) => {
+    try {
+      setIsLoading(true);
+      const response = (await addWithlist(getToken(), id)) as ApiResponse;
+      setWithlistIds(response.data);
+      toast(response?.message);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const removeFromWithlist = async (id: string) => {
+    try {
+      setIsLoading(true);
+      const response = (await removeWithlist(getToken(), id)) as ApiResponse;
+      refetchWithlist();
+      toast(response?.message);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // ^ cart function
+  const addInCart = async (id: string) => {
+    if (!isAuthenticated()) return;
+
+    try {
+      setIsLoadingCard(true);
+      const response = (await addCart(getToken(), id)) as AddCartResponce;
+      refetchCart();
+      toast(response?.message);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoadingCard(false);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-2 pt-6 md:pt-0  justify-between  col-span-2">
@@ -89,36 +164,44 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       </div>
 
       {/* Action Buttons */}
-      <div className="flex flex-col sm:flex-row gap-4">
+      <div className="flex flex-row gap-2 lg:gap-4">
         <Button
-          className=" gap-2"
-          size="lg"
-          onClick={() => setAddedToCart(true)}
-          disabled={!product.quantity || addedToCart}
+          className="md:gap-1 flex-1 text-[10px] md:text-[12px] "
+          onClick={(e) => {
+            e.preventDefault();
+            addInCart(product._id);
+          }}
         >
-          {addedToCart ? (
-            <>
-              <Check className="h-5 w-5" />
-              Added to Cart
-            </>
+          {isLoadingCard ? (
+            <Loader className="animate-spin h-5 w-5" />
           ) : (
             <>
-              <ShoppingCart className="h-5 w-5" />
+              <ShoppingCart className="md:size-5 size-3" />
               Add to Cart
             </>
           )}
         </Button>
 
         <Button
-          variant={inWishlist ? "default" : "outline"}
-          size="lg"
-          className={` gap-2 ${
-            inWishlist ? "bg-pink-600 hover:bg-pink-700" : ""
-          }`}
-          onClick={() => setInWishlist(!inWishlist)}
+          size="icon"
+          variant="secondary"
+          className="shadow-xl border"
+          onClick={(e) => {
+            e.preventDefault();
+            handleToggleWishlist(product._id);
+          }}
         >
-          <Heart className={`h-5 w-5 ${inWishlist ? "fill-current" : ""}`} />
-          {inWishlist ? "In Wishlist" : "Add to Wishlist"}
+          {isLoading ? (
+            <Loader className="animate-spin h-5 w-5" />
+          ) : (
+            <Heart
+              className={cn(" size-5", {
+                "fill-rose-600 stroke-rose-600": wishlistIds.includes(
+                  product._id
+                ),
+              })}
+            />
+          )}
         </Button>
       </div>
 

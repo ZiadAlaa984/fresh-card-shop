@@ -1,13 +1,16 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const BtnNavbar = ({
   Count,
   icon,
+  name,
 }: {
+  name: string;
   Count?: number;
   icon: React.ReactNode;
 }) => (
-  <div className="hidden md:flex items-center gap-2">
+  <Link href={name} className="flex items-center gap-2">
     <div className="relative">
       <Button variant="outline" size="icon">
         {icon}
@@ -18,7 +21,7 @@ const BtnNavbar = ({
         </span>
       )}
     </div>
-  </div>
+  </Link>
 );
 
 export default BtnNavbar;

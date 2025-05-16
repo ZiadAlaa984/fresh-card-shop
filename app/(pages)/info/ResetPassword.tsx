@@ -51,7 +51,7 @@ export default function ResetPassword() {
       toast(res.message);
       setAuthCookies(res);
     },
-    onError: (error) => {
+    onError: () => {
       toast("error");
     },
   });

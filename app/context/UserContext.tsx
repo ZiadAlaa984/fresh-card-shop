@@ -15,6 +15,7 @@ import React, {
 interface UserContextProps {
   wishlistIds: string[];
   cartCount: number;
+  isLoading: boolean;
   wishlist: Product[];
   cart: CartResponce;
   refetchWithlist: () => void;
@@ -32,12 +33,14 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
   const [wishlistIds, setWithlistIds] = useState<string[]>();
   const [cartCount, setCartCount] = useState<number>();
   const [wishlist, setWithlist] = useState<Product[]>();
+  const [isLoading, setIsLoading] = useState(false);
   const [cart, setCart] = useState<CartResponce>();
   const [status, setStatus] = useState(false);
   const [cartStatus, setCartStatus] = useState(false);
   //  ! useEffect withlist
   useEffect(() => {
     const getWithlistData = async () => {
+      setIsLoading(true);
       const data = await getWithlist(getToken());
       if (data && typeof data === "object") {
         const typedData = data as withlistType;
@@ -45,6 +48,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
         const withlistIdsData = typedData?.data.map((item) => item.id);
         setWithlistIds(withlistIdsData);
       }
+      setIsLoading(false);
     };
     getWithlistData();
   }, [status]);
@@ -73,6 +77,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
         setWithlistIds,
         setCartCount,
         refetchCart,
+        isLoading,
         wishlistIds: wishlistIds || [],
         cartCount: cartCount || 0,
         refetchWithlist,

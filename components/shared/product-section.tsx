@@ -26,7 +26,7 @@ export default function ProductSection({
   gridClass?: string;
   pagination?: boolean;
   PaginationMetadata: PaginationMetadataType;
-  error?: string; // 🔥 New error prop
+  error?: string;
 }) {
   return (
     <Header className={className} title={"Products"}>

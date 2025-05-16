@@ -27,8 +27,16 @@ const Navbar = () => {
           <div className="flex items-center gap-3">
             {token && (
               <>
-                <BtnNavbar icon={<ShoppingCart />} Count={cartCount} />
-                <BtnNavbar icon={<Heart />} Count={wishlistIds?.length} />
+                <BtnNavbar
+                  name={"/cart"}
+                  icon={<ShoppingCart />}
+                  Count={cartCount}
+                />
+                <BtnNavbar
+                  name={"/withlist"}
+                  icon={<Heart />}
+                  Count={wishlistIds?.length}
+                />
               </>
             )}
 

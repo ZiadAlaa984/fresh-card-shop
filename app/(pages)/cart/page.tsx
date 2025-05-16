@@ -9,11 +9,13 @@ export default function CartPage() {
   return (
     <div>
       <ShoppingCart refetchCart={refetchCart} cart={cart} />
-      <CheckOut
-        refetchCart={refetchCart}
-        cartOwner={cart?.cartId}
-        totalPrice={cart?.data?.totalCartPrice}
-      />
+      {cart?.data?.products?.length > 0 && (
+        <CheckOut
+          refetchCart={refetchCart}
+          cartOwner={cart?.cartId}
+          totalPrice={cart?.data?.totalCartPrice}
+        />
+      )}
     </div>
   );
 }

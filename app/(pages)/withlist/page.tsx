@@ -3,20 +3,22 @@ import React from "react";
 import ProductSection from "@/components/shared/product-section";
 import { PaginationMetadataType } from "@/types/Products";
 import { useUserContext } from "@/app/context/UserContext";
+import Header from "@/components/shared/Header";
 
 export default function Page() {
-  const { wishlist } = useUserContext();
-
+  const { wishlist, isLoading } = useUserContext();
   return (
-    <div className="grid gap-8 grid-cols-4">
+    <Header title="withlist">
       <ProductSection
+        isLoading={isLoading}
+        pagination={false}
         PaginationMetadata={{} as PaginationMetadataType}
-        gridClass={"lg:grid-cols-3"}
+        gridClass={"lg:grid-cols-4"}
         className={"col-span-3"}
         Products={Array.isArray(wishlist) ? wishlist : []}
         page={1}
         setPage={() => {}}
       />
-    </div>
+    </Header>
   );
 }

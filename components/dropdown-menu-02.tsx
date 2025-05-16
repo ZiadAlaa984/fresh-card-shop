@@ -7,7 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogIn, LogOut, Settings, User } from "lucide-react";
+import { LogIn, LogOut, User } from "lucide-react";
 
 export default function DropdownMenuWithIcon({ token }: { token: string }) {
   return (

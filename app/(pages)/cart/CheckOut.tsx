@@ -57,10 +57,7 @@ export default function CheckOut({
           <div className="mt-6">
             <div className="border rounded-md overflow-hidden p-5">
               <div className="flex justify-between items-center">
-                <h3 className="font-semibold flex items-center gap-1  mb-4">
-                  {" "}
-                  Cash Order <BanknoteArrowUp />
-                </h3>
+                <h3 className="font-semibold  mb-4"> Cash Order</h3>
 
                 <div className="flex justify-between gap-2 mb-6">
                   <span>Total Price :</span>
@@ -109,8 +106,11 @@ export default function CheckOut({
                 />
                 <div className="space-y-4">
                   <div className="text-center">
-                    <Button type="submit" className="w-full ">
-                      Place Cash Order
+                    <Button
+                      type="submit"
+                      className="w-full flex items-center gap-1  "
+                    >
+                      Place Cash Order <BanknoteArrowUp />
                     </Button>
                   </div>
                 </div>

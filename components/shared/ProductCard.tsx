@@ -23,6 +23,7 @@ export default function ProductCard({ product }: { product: Product }) {
     useUserContext();
   const { getToken } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingCard, setIsLoadingCard] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   // Check if user is authenticated
@@ -79,14 +80,14 @@ export default function ProductCard({ product }: { product: Product }) {
     if (!isAuthenticated()) return;
 
     try {
-      setIsLoading(true);
+      setIsLoadingCard(true);
       const response = (await addCart(getToken(), id)) as AddCartResponce;
       refetchCart();
       toast(response?.message);
     } catch (error) {
       console.log(error);
     } finally {
-      setIsLoading(false);
+      setIsLoadingCard(false);
     }
   };
 
@@ -149,8 +150,14 @@ export default function ProductCard({ product }: { product: Product }) {
                   addInCart(product._id);
                 }}
               >
-                <ShoppingCart className="md:size-5 size-3" />
-                Add to Cart
+                {isLoadingCard ? (
+                  <Loader className="animate-spin size-3 md:size-5" />
+                ) : (
+                  <>
+                    <ShoppingCart className=" size-3" />
+                    Add to Cart
+                  </>
+                )}
               </Button>
               <Button
                 size="icon"
