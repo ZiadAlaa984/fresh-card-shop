@@ -20,3 +20,15 @@ export interface AuthResponse {
   token: string;
   user: User;
 }
+export interface DecodedToken {
+  id: string;
+  name: string;
+  role: string;
+  iat: number; // Issued at (Unix timestamp)
+  exp: number; // Expiration time (Unix timestamp)
+}
+
+export interface TokenVerificationResponse {
+  message: string;
+  decoded: DecodedToken;
+}

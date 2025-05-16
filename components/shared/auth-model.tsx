@@ -124,7 +124,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               </Link>
             </div>
             <div className="text-center">
-              <span className="text-sm">Don't Have An Account? </span>
+              <span className="text-sm">Don&apos;t Have An Account? </span>
               <Link
                 href={Route.auth.signup}
                 className="text-primary hover:underline text-sm"
