@@ -1,4 +1,4 @@
-import { formSchema } from "@/app/(pages)/info/scheme";
+import { formSchema } from "@/app/(pages)/profile/scheme";
 import API from "@/config/endPointUrl";
 import { TokenVerificationResponse } from "@/types/auth";
 import { userInfo, UserResponse } from "@/types/user";
