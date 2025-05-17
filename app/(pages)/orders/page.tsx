@@ -1,16 +1,15 @@
 "use client";
 
 import Header from "@/components/shared/Header";
-import { Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { GetOrders } from "@/Service/orders";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 import { verifyToken } from "@/Service/user";
-import LoadingCards from "@/components/shared/loadingCards";
 import { Order } from "@/types/orders";
+import Loading from "@/app/loading";
 
 export default function OrdersPage() {
   const { getToken } = useAuth();
@@ -39,6 +38,10 @@ export default function OrdersPage() {
   });
   console.log("🚀 ~ OrdersPage ~ data:", data);
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <>
       <Header title="Orders">
@@ -53,7 +56,7 @@ export default function OrdersPage() {
                 <div className="space-y-1 mb-2 md:mb-0">
                   <p className="font-semibold text-gray-700">
                     Transaction Number:{" "}
-                    <span className="text-gray-900">{order._id}</span>
+                    <span className="text-gray-900">{order.id}</span>
                   </p>
                 </div>
                 <div className="space-y-1 mb-2 md:mb-0">
@@ -72,14 +75,11 @@ export default function OrdersPage() {
                     </span>
                   </p>
                 </div>
-                <Button className="flex items-center gap-1">
-                  <Plus /> Add New Items
-                </Button>
               </div>
 
               {/* Order Items */}
-              <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                <div className="lg:col-span-4 max-h-[500px] overflow-y-auto space-y-6">
+              <div className="grid grid-cols-1 overflow-auto lg:grid-cols-4 gap-6">
+                <div className="lg:col-span-4  min-w-[400px]  max-h-[500px] overflow-y-auto space-y-6">
                   {order.cartItems.map((item) => (
                     <div
                       key={item._id}
@@ -122,7 +122,7 @@ export default function OrdersPage() {
 
               {/* Order Summary */}
               <div className="mt-8 border-t pt-6">
-                <div className="flex items-center justify-between">
+                <div className="flex  flex-col md:flex-row  items-start md:items-center justify-between">
                   <div className="flex justify-between items-center gap-1 mb-2">
                     <p className="font-semibold">Products Quantity :</p>
                     <p>{order.cartItems.length}</p>
@@ -134,7 +134,7 @@ export default function OrdersPage() {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex  flex-col md:flex-row  items-start md:text-center justify-between">
                   <div className="flex justify-between items-center gap-1 mb-2">
                     <p className="font-semibold">Taxes :</p>
                     <p>
