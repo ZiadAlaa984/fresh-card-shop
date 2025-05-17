@@ -23,6 +23,7 @@ export default function Page() {
   const { data, isLoading } = useQuery<ProductResponse>({
     queryKey: ["products", page, filtes],
     queryFn: () => getProducts(page, 10, filtes),
+    staleTime: 1000 * 60 * 5, // cache for 5 minutes
   });
   // products pages
   const CategorysData = categoryQuery?.data || [];

@@ -42,6 +42,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
       if (res.user) {
         setAuthCookies(res);
         onClose();
+        window.location.reload();
       }
     },
     onError: (error) => {
@@ -115,14 +116,14 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 </FormItem>
               )}
             />
-            <div className="text-center">
+            {/* <div className="text-center">
               <Link
                 href={Route.auth.forgetPassword}
                 className="text-muted-foreground hover:text-primary text-sm"
               >
                 Forgot Your Password?
               </Link>
-            </div>
+            </div> */}
             <div className="text-center">
               <span className="text-sm">Don&apos;t Have An Account? </span>
               <Link

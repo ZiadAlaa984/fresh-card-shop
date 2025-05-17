@@ -37,7 +37,7 @@ export default function CategorySlider({
       if (!IsMounted) return;
 
       updateDimensions(); // Set initial dimensions
-    }, 500);
+    }, 1000);
 
     window.addEventListener("resize", updateDimensions);
     return () => {
@@ -63,12 +63,9 @@ export default function CategorySlider({
                   key={Category._id}
                   className="basis-1/2 md:basis-1/3 lg:basis-1/5"
                 >
-                  <div className="">
+                  <div ref={imgRef} className="">
                     <Card>
-                      <CardContent
-                        ref={imgRef}
-                        className="flex aspect-square  flex-col   items-center justify-center"
-                      >
+                      <CardContent className="flex aspect-square  flex-col   items-center justify-center">
                         <Image
                           alt={Category.name}
                           className="rounded-t-xl h-[150px] md:h-[320px] object-cover"

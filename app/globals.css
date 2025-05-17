@@ -130,4 +130,8 @@
     margin-top: 0;
     margin-right: 0px !important;
   }
+  html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
 }

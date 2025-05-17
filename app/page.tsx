@@ -32,6 +32,7 @@ export default function Home() {
   } = useQuery<ProductResponse>({
     queryKey: ["products", page],
     queryFn: () => getProducts(page, 10),
+    staleTime: 1000 * 60 * 5, // cache for 5 minutes
   });
 
   if (isErrorCategories || isErrorProducts) {
@@ -40,7 +41,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col gap-4">
-      {/* <CarouselHome carousels={carousels} /> */}
+      <CarouselHome carousels={carousels} />
       <CategorySlider
         isLoadingCategories={isLoadingCategories}
         Categorys={categories?.data || []}

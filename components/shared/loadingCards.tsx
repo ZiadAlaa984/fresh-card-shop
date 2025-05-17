@@ -9,11 +9,11 @@ export default function LoadingCards({
   return (
     <div
       className={cn(
-        `grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-2 md:gap-6 w-full`,
+        `grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 py-10 gap-2 md:gap-6 w-full`,
         LoadingClassName
       )}
     >
-      {Array(8)
+      {Array(3)
         .fill(0)
         .map((_, index: number) => (
           <div key={index} className="animate-pulse col-span-1">

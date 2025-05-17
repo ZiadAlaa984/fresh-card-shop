@@ -67,12 +67,12 @@ const ForgetPassword = () => {
         </Form>
 
         <div className="mt-5 space-y-5">
-          <Link
+          {/* <Link
             href="#"
             className="text-sm block underline text-muted-foreground text-center"
           >
             Forgot your password?
-          </Link>
+          </Link> */}
           <p className="text-sm text-center">
             Don&apos;t have an account?
             <Link

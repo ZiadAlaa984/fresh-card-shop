@@ -25,7 +25,8 @@ export const useAuth = () => {
   const logout = useCallback(() => {
     Cookies.remove("token");
     Cookies.remove("user");
-    router.push("/auth/login");
+    router.replace("/auth/login");
+    window.location.reload();
   }, [router]);
 
   const getToken = useCallback(() => {
@@ -33,7 +34,7 @@ export const useAuth = () => {
   }, []);
 
   const getUser = useCallback(() => {
-    const userStr = Cookies.get("user");
+    const userStr = Cookies.get("user");  
     return userStr ? JSON.parse(userStr) : null;
   }, []);
 

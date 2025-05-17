@@ -18,15 +18,19 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { LoginReq } from "@/Service/auth";
 import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
   const { setAuthCookies } = useAuth();
   const form = useLoginForm();
+  const router = useRouter();
+
   const { mutateAsync, isPending } = useMutation({
     mutationFn: LoginReq,
     onSuccess: (res) => {
       setAuthCookies(res);
       toast(res.message);
+      router.push("/");
     },
     onError: (error) => {
       toast(error.message);
@@ -96,12 +100,12 @@ const Login = () => {
         </Form>
 
         <div className="mt-5 space-y-5">
-          <Link
+          {/* <Link
             href="#"
             className="text-sm block underline text-muted-foreground text-center"
           >
             Forgot your password?
-          </Link>
+          </Link> */}
           <p className="text-sm text-center">
             Don&apos;t have an account?
             <Link

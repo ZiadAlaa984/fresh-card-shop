@@ -65,7 +65,7 @@ export default function ShoppingCart({
               size="icon"
               className="rounded-full bg-primary text-white primary/70"
             >
-              <ArrowLeft className="h-5 w-5" />
+              <ArrowLeft className="size-3 md:size-5 " />
             </Button>
           </Link>
           <TypographyH3>Shop Cart</TypographyH3>

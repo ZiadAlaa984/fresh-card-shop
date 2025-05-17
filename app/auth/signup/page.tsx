@@ -17,16 +17,19 @@ import { formSchema, useSignUpForm } from "./scheme";
 import { toast } from "sonner";
 import { SignupReq } from "@/Service/auth";
 import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
 
 const SignUp = () => {
   const form = useSignUpForm();
   const { setAuthCookies } = useAuth();
+  const router = useRouter();
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: SignupReq,
     onSuccess: (res) => {
       setAuthCookies(res);
       toast(res.message);
+      router.push("/");
     },
     onError: (error) => {
       toast(error.message);
