@@ -142,9 +142,9 @@ export default function ProductCard({ product }: { product: Product }) {
                 {product.sold} sold
               </span>
             </div>
-            <div className="flex flex-row mt-2 justify-between md:mt-4 sm:flex-row gap-1 md:gap-2">
+            <div className="flex  flex-row mt-2 gap-1 justify-between md:mt-4   md:gap-2">
               <Button
-                className="md:gap-1 flex-1 text-[10px] md:text-sm "
+                className="md:gap-1 flex-1 text-[8px] md:text-sm "
                 onClick={(e) => {
                   e.preventDefault();
                   addInCart(product._id);

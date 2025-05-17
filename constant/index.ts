@@ -84,7 +84,7 @@ export const carousels = [
 export const Navbar = [
   { href: "/", value: "Home" },
   { href: "/categories", value: "Categories" },
-  // { href: "/brands", value: "Brands" },
+  { href: "/brands", value: "Brands" },
   { href: "/products", value: "Products" },
   { href: "/orders", value: "orders", token: true },
 ];

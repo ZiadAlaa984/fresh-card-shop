@@ -13,6 +13,7 @@ import { addCart } from "@/Service/cart";
 import { AddCartResponce, ApiResponse } from "@/types/Cart";
 import { addWithlist, removeWithlist } from "@/Service/wthlist";
 import { cn } from "@/lib/utils";
+import { AuthModal } from "../shared/auth-model";
 
 interface ProductDetailsProps {
   product: Product;
@@ -214,6 +215,11 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           <p>• Sold: {product.sold || 0} units</p>
         </div>
       </Card>
+
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+      />
     </div>
   );
 }
